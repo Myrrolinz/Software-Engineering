@@ -95,7 +95,7 @@ class Practice(models.Model):
 
 # 主观题批改类
 class SubjectiveAnswer(models.Model):
-    student = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE) # 学生，使用外键，CASCADE表示级联删除
     exam = models.ForeignKey(Exam, verbose_name="考试", on_delete=models.CASCADE)
     question = models.ForeignKey(Subjective, verbose_name="题目", on_delete=models.CASCADE)
     answer = models.TextField("答案", default="")

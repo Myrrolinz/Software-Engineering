@@ -48,7 +48,7 @@ class PaperAdmin(object):
     model_icon = 'fa fa-file-text'
 
 
-class GradeAdmin(object):
+class GradeAdmin(object):# 成绩管理
     list_display = ['id', 'exam', 'student', 'score', 'create_time', 'update_time']
     list_filter = ['exam', 'student', 'create_time', 'update_time']
     search_fields = ['exam', 'student']
@@ -57,7 +57,7 @@ class GradeAdmin(object):
     # list_editable = ['id', 'score']
     model_icon = 'fa fa-bar-chart'
 
-    data_charts = {
+    data_charts = {# 图表
         'grade_charts1': {
             'title': '考试成绩曲线图',
             'x-field': 'create_time',
