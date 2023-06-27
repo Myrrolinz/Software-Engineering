@@ -1,10 +1,15 @@
-# ExamOnline
-Python在线考试系统-大学毕业设计
-前端代码：https://github.com/520118202/exam-online
+# 四六级报考系统
+
+此处为后端代码
+
 后端安装依赖
+
 pip install -r requirements.txt
+
 前端安装依赖
+
 npm run install
+
 ![image](https://github.com/520118202/ExamOnline/blob/master/templates/img/1.png)
 ![image](https://github.com/520118202/ExamOnline/blob/master/templates/img/2.png)
 ![image](https://github.com/520118202/ExamOnline/blob/master/templates/img/3.png)
