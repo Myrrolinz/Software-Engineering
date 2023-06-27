@@ -70,7 +70,7 @@ class GradeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.
         for grade in self.queryset:
             # 查找所有Subjective表中，student_id=student_id,exam_id = grade.exam_id的数据
             subjective_list: list = SubjectiveAnswer.objects.filter(student_id=student_id, exam_id=grade.exam_id, identifier=grade.identifier)
-            # 如果有数据，就把分数相加
+            # 如果有数据，就把分数相加 
             if subjective_list:
                 score = grade.score
                 for subjective in subjective_list:
@@ -83,15 +83,15 @@ class GradeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.
 
 class PracticeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """练习列表"""
-    # 数据集
+    # 数据集 
     queryset = Practice.objects.all()
-    # 序列化
+    # 序列化 
     serializer_class = PracticeSerializer
-    # 分页
+    # 分页 
     pagination_class = CommonPagination
 
     def get_queryset(self):
-        # 学生ID
+        # 学生ID 
         student_id = self.request.query_params.get('student_id')
         if student_id:
             self.queryset = Practice.objects.filter(student_id=student_id)
@@ -100,11 +100,11 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewse
 
 class SubjectiveListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """主观题列表"""
-    # 数据集，需要排除已经批改（就是有分数的）的主观题
+    # 数据集，需要排除已经批改（就是有分数的）的主观题 
     queryset = SubjectiveAnswer.objects.filter()
-    # 序列化
+    # 序列化 
     serializer_class = SubjectiveSerializer
-    # 分页
+    # 分页 
     pagination_class = CommonPagination
 
     def get_queryset(self):
