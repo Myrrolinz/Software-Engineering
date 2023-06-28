@@ -7,6 +7,10 @@ from django.db.models import Q
 from django.contrib.auth.hashers import make_password, check_password 
 from user.models import Student, Clazz
 from user.serializers import StudentSerializer, UserDetailSerializer, ClazzSerializer
+from rest_framework import status
+from rest_framework.response import Response
+
+import requests
 
 # Create your tests here.
 
@@ -31,7 +35,6 @@ class CustomBackendTest(TestCase):
         self.assertEqual(user1, User.objects.get(id=1))
 
     def test_jwt_response_payload_handler(self):
-
         token = '1'
         user = User.objects.get(id=1)
         result = jwt_response_payload_handler(token=token, user=user)
@@ -58,3 +61,32 @@ class CustomBackendTest(TestCase):
 
         self.assertTemplateUsed(resp, 'templates/login.html')
     '''
+
+class RegisterViewSetTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        #Create 13 authors for pagination tests
+        number_of_users = 13
+        for user_num in range(number_of_users):
+            User.objects.create(username='user%s' % user_num, password = '654321%s' % user_num,)
+        Clazz.objects.create(year='2020', major='计算机', clazz='1')
+        Student.objects.create(name='syq', user=User.objects.get(id=1), gender='f', clazz=Clazz.objects.get(id=1))
+    
+    def test_create_user_fail(self):
+        view = RegisterViewSet()
+        data = {'username': 'user2', 'name': 'abc'}
+        url = "http://127.0.0.1:8000/register/"
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        res = requests.post(url, headers=headers, data=data)
+        result = view.create(res)
+        self.assertEqual(result.status, status.HTTP_201_CREATED)
+    '''
+    def test_create_user(self):
+        view = RegisterViewSet()
+        request = {'username': 'user14', 'name': 'abc'}
+        result = view.create(request)
+        user_detail = UserDetailSerializer(data=request.data)
+        self.assertEqual(result, Response(user_detail.errors))
+    '''
+
