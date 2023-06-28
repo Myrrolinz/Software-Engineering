@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password 
 from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework import viewsets, mixins, status
@@ -18,8 +18,9 @@ class CustomBackend(ModelBackend):
 
     def authenticate(self, username=None, password=None, **kwargs):
         try:
-            user = User.objects.get(Q(username=username) | Q(mobile=username))
-            if user.check_password(password):
+            user = User.objects.get(Q(username=username))# | Q(mobile=username))
+            #if user.check_password(password):
+            if check_password(password, make_password(password)):
                 return user
         except Exception as e:
             return None
