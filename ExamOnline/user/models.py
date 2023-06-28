@@ -24,14 +24,14 @@ class Student(models.Model):
         ('m', '男'),
         ('f', '女')
     )
-    name = models.CharField("姓名", max_length=20, default="")
+    name = models.CharField("姓名", max_length=20, default="") # verbose_name="姓名"
     # 一对一关联字段
-    user = models.OneToOneField(User, verbose_name="用户", on_delete=models.CASCADE)
-    gender = models.CharField("性别", max_length=1, choices=GENDER_CHOICES, default="")
-    clazz = models.ForeignKey(Clazz, verbose_name="班级", on_delete=models.CASCADE, default="1")
+    user = models.OneToOneField(User, verbose_name="用户", on_delete=models.CASCADE) # on_delete=models.CASCADE 级联删除
+    gender = models.CharField("性别", max_length=1, choices=GENDER_CHOICES, default="") # verbose_name="性别"
+    clazz = models.ForeignKey(Clazz, verbose_name="班级", on_delete=models.CASCADE, default="1") # verbose_name="班级"
 
 
-    class Meta:
+    class Meta: # 元数据
         ordering = ['id']
         db_table = 'user_student'
         verbose_name = '学生'
@@ -52,10 +52,10 @@ class Teacher(models.Model):
         ('副教授', '副教授'),
         ('教授', '教授')
     )
-    name = models.CharField("姓名", max_length=20, default="")
-    gender = models.CharField("性别", max_length=1, choices=GENDER_CHOICES, default="男")
-    title = models.CharField("职称", max_length=5, choices=TITLE_CHOICES, default="讲师")
-    institute = models.CharField("学院", max_length=20, default="")
+    name = models.CharField("姓名", max_length=20, default="") # verbose_name="姓名"
+    gender = models.CharField("性别", max_length=1, choices=GENDER_CHOICES, default="男") # verbose_name="性别"
+    title = models.CharField("职称", max_length=5, choices=TITLE_CHOICES, default="讲师") # verbose_name="职称"
+    institute = models.CharField("学院", max_length=20, default="") # verbose_name="学院"
 
     # 一对一关联字段
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="用户")

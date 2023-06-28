@@ -6,13 +6,13 @@ from user.models import Student, Clazz
 
 class ClazzSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Clazz
+        model = Clazz # 指定序列化的模型
         fields = '__all__'
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = User # 指定序列化的模型
         fields = '__all__'
 
 
