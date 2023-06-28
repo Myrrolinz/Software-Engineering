@@ -5,32 +5,32 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 
-class Migration(migrations.Migration):
+class Migration(migrations.Migration): # 生成的迁移文件
 
-    initial = True
+    initial = True # 初始状态
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL), # 依赖
     ]
 
-    operations = [
-        migrations.CreateModel(
-            name='Clazz',
-            fields=[
+    operations = [ # 操作
+        migrations.CreateModel( # 创建模型
+            name='Clazz', # 模型名：班级
+            fields=[ # 字段
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('year', models.CharField(max_length=20, verbose_name='年级')),
                 ('major', models.CharField(max_length=20, verbose_name='专业')),
                 ('clazz', models.CharField(max_length=20, verbose_name='班级')),
             ],
-            options={
+            options={ # 元数据
                 'verbose_name': '班级',
                 'verbose_name_plural': '班级',
                 'ordering': ['id'],
             },
         ),
-        migrations.CreateModel(
-            name='Teacher',
-            fields=[
+        migrations.CreateModel( # 创建模型
+            name='Teacher', # 模型名：教师
+            fields=[ # 字段
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(default='', max_length=20, verbose_name='姓名')),
                 ('gender', models.CharField(choices=[('男', '男'), ('女', '女')], default='男', max_length=1, verbose_name='性别')),
@@ -38,23 +38,23 @@ class Migration(migrations.Migration):
                 ('institute', models.CharField(default='', max_length=20, verbose_name='学院')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='用户')),
             ],
-            options={
+            options={ # 元数据
                 'verbose_name': '教师',
                 'verbose_name_plural': '教师',
                 'db_table': 'user_teacher',
                 'ordering': ['id'],
             },
         ),
-        migrations.CreateModel(
-            name='Student',
-            fields=[
+        migrations.CreateModel( # 创建模型
+            name='Student', # 模型名：学生
+            fields=[ # 字段
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(default='', max_length=20, verbose_name='姓名')),
                 ('gender', models.CharField(choices=[('m', '男'), ('f', '女')], default='', max_length=1, verbose_name='性别')),
                 ('clazz', models.ForeignKey(default='1', on_delete=django.db.models.deletion.CASCADE, to='user.Clazz', verbose_name='班级')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='用户')),
             ],
-            options={
+            options={ # 元数据
                 'verbose_name': '学生',
                 'verbose_name_plural': '学生',
                 'db_table': 'user_student',

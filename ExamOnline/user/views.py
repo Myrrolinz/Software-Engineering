@@ -78,9 +78,9 @@ class UpdatePwdApi(APIView):
             user.set_password(new_pwd)
             user.save()
         else:
-            return Response(data={'msg': 'fail'}, status=status.HTTP_200_OK)
+            return Response(data={'msg': 'fail'}, status=status.HTTP_200_OK) # 返回200状态码
         # 返回数据
-        return Response(data={'msg': 'success'}, status=status.HTTP_200_OK)
+        return Response(data={'msg': 'success'}, status=status.HTTP_200_OK) # 返回200状态码
 
 
 class StudentViewSet(viewsets.ModelViewSet):
