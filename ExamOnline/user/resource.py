@@ -4,7 +4,7 @@ from user.models import Student
 
 
 class StudentResource(resources.ModelResource):
-    # 学生资源类
+
     class Meta:
         model = Student
         fields = ('id', 'name', 'user', 'gender', 'clazz')

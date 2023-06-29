@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password 
 from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework import viewsets, mixins, status
@@ -18,8 +18,9 @@ class CustomBackend(ModelBackend):
 
     def authenticate(self, username=None, password=None, **kwargs):
         try:
-            user = User.objects.get(Q(username=username) | Q(mobile=username))
-            if user.check_password(password):
+            user = User.objects.get(Q(username=username))# | Q(mobile=username))
+            #if user.check_password(password):
+            if check_password(password, make_password(user.password)):
                 return user
         except Exception as e:
             return None
@@ -74,13 +75,16 @@ class UpdatePwdApi(APIView):
         # 获得请求用户
         user = User.objects.get(id=user_id)
         # 检查原始密码是否正确
-        if user.check_password(old_pwd):
+        #if user.check_password(old_pwd):
+        #    user.set_password(new_pwd)
+        #    user.save()
+        if check_password(old_pwd,make_password(user.password)):
             user.set_password(new_pwd)
             user.save()
         else:
-            return Response(data={'msg': 'fail'}, status=status.HTTP_200_OK) # 返回200状态码
+            return Response(data={'msg': 'fail'}, status=status.HTTP_200_OK)
         # 返回数据
-        return Response(data={'msg': 'success'}, status=status.HTTP_200_OK) # 返回200状态码
+        return Response(data={'msg': 'success'}, status=status.HTTP_200_OK)
 
 
 class StudentViewSet(viewsets.ModelViewSet):
