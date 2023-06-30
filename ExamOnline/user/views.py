@@ -9,6 +9,9 @@ from rest_framework.views import APIView
 from user.models import Student, Clazz
 from user.serializers import StudentSerializer, UserDetailSerializer, ClazzSerializer
 
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 class CustomBackend(ModelBackend):
@@ -78,9 +81,9 @@ class UpdatePwdApi(APIView):
             user.set_password(new_pwd)
             user.save()
         else:
-            return Response(data={'msg': 'fail'}, status=status.HTTP_200_OK) # 返回200状态码
+            return Response(data={'msg': 'fail'}, status=status.HTTP_200_OK)
         # 返回数据
-        return Response(data={'msg': 'success'}, status=status.HTTP_200_OK) # 返回200状态码
+        return Response(data={'msg': 'success'}, status=status.HTTP_200_OK)
 
 
 class StudentViewSet(viewsets.ModelViewSet):
@@ -101,3 +104,19 @@ class ClazzListViewSet(viewsets.ModelViewSet):
     queryset = Clazz.objects.all().order_by('id')
     # 序列化
     serializer_class = ClazzSerializer
+
+
+
+@csrf_exempt
+def submit_form(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        amount = request.POST.get('amount')
+
+        # 在这里处理表单数据
+        print(name, email, amount)
+
+        return HttpResponse('表单提交成功')
+    else:
+        return HttpResponse('错误的请求方法')

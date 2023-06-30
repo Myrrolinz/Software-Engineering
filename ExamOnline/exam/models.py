@@ -1,5 +1,5 @@
 from django.db import models
-from question.models import Choice, Fill, Judge, Subjective
+from question.models import Choice, Fill, Judge, Program
 from user.models import Student, Clazz
 from datetime import datetime
 import random
@@ -20,7 +20,7 @@ class Paper(models.Model):
     choice_number = models.PositiveSmallIntegerField("选择题数", default=10)
     fill_number = models.PositiveSmallIntegerField("填空题数", default=10)
     judge_number = models.PositiveSmallIntegerField("判断题数", default=10)
-    subjective_number = models.PositiveSmallIntegerField("主观题数", default=5)
+    program_number = models.PositiveSmallIntegerField("编程题数", default=5)
     level = models.CharField("难度等级", max_length=1, choices=LEVEL_CHOICES, default="1")
 
     class Meta:
@@ -32,7 +32,7 @@ class Paper(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.score = (self.choice_number + self.fill_number + self.judge_number) * 2 + self.subjective_number * 8
+        self.score = (self.choice_number + self.fill_number + self.judge_number) * 2 + self.program_number * 8
         super().save(*args, **kwargs)
 
 
@@ -63,7 +63,6 @@ class Grade(models.Model):
     score = models.PositiveSmallIntegerField("分数", default="")
     create_time = models.DateTimeField("创建日期", auto_now_add=True)
     update_time = models.DateTimeField("修改日期", auto_now=True)
-    identifier = models.CharField("标识符", max_length=8, default="")  # 8位随机字符串用于标示特定的考试
 
     class Meta:
         ordering = ['id']
@@ -91,23 +90,3 @@ class Practice(models.Model):
     def save(self, *args, **kwargs):
         self.name = f'模拟练习{datetime.now().strftime("%Y%m%d")}{random.randint(1000, 9999)}'
         super().save(*args, **kwargs)
-
-
-# 主观题批改类
-class SubjectiveAnswer(models.Model):
-    student = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE) # 学生，使用外键，CASCADE表示级联删除
-    exam = models.ForeignKey(Exam, verbose_name="考试", on_delete=models.CASCADE)
-    question = models.ForeignKey(Subjective, verbose_name="题目", on_delete=models.CASCADE)
-    answer = models.TextField("答案", default="")
-    score = models.PositiveSmallIntegerField("分数", null=True, blank=True)
-    create_time = models.DateTimeField("创建日期", auto_now_add=True)
-    update_time = models.DateTimeField("修改日期", auto_now=True)
-    identifier = models.CharField("标识符", max_length=8, default="")  # 8位随机字符串用于标示特定的考试
-
-    class Meta:
-        ordering = ['id']
-        verbose_name = '主观题批改'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return f'{self.student}的{self.question}为{self.score}分'

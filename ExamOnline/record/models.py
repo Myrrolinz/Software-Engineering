@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from exam.models import Practice
-from question.models import Choice, Fill, Judge, Subjective
+from question.models import Choice, Fill, Judge, Program
 from user.models import Student
 
 
@@ -14,7 +14,7 @@ class Record(models.Model):
 
     class Meta:
         # 抽象类
-        abstract = True
+        abstract = Truex
 
     def __str__(self):
         return self.your_answer
@@ -49,11 +49,11 @@ class JudgeRecord(Record):
         verbose_name_plural = verbose_name
 
 
-class SubjectiveRecord(Record):
-    program = models.ForeignKey(Subjective, verbose_name="主观题", on_delete=models.CASCADE)
+class ProgramRecord(Record):
+    program = models.ForeignKey(Program, verbose_name="编程题", on_delete=models.CASCADE)
     cmd_msg = models.TextField("输出结果", null=True, blank=True)
 
     class Meta:
         ordering = ['id']
-        verbose_name = '主观题答题记录'
+        verbose_name = '编程题答题记录'
         verbose_name_plural = verbose_name

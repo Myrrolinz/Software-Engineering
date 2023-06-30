@@ -2,7 +2,7 @@ import xadmin
 from django.contrib.auth.models import User
 from xadmin.plugins.auth import UserAdmin
 
-from exam.models import Exam, Grade, Paper,SubjectiveAnswer
+from exam.models import Exam, Grade, Paper
 from xadmin.views import CommAdminView, BaseAdminView
 
 
@@ -39,7 +39,7 @@ class ExamAdmin(object):
 
 
 class PaperAdmin(object):
-    list_display = ['id', 'name', 'score', 'choice_number', 'fill_number', 'judge_number', 'subjective_number', 'level']
+    list_display = ['id', 'name', 'score', 'choice_number', 'fill_number', 'judge_number', 'program_number', 'level']
     list_filter = ['level']
     search_fields = ['id', 'name']
     list_display_links = ['name']
@@ -48,7 +48,7 @@ class PaperAdmin(object):
     model_icon = 'fa fa-file-text'
 
 
-class GradeAdmin(object):# 成绩管理
+class GradeAdmin(object):
     list_display = ['id', 'exam', 'student', 'score', 'create_time', 'update_time']
     list_filter = ['exam', 'student', 'create_time', 'update_time']
     search_fields = ['exam', 'student']
@@ -57,7 +57,7 @@ class GradeAdmin(object):# 成绩管理
     # list_editable = ['id', 'score']
     model_icon = 'fa fa-bar-chart'
 
-    data_charts = {# 图表
+    data_charts = {
         'grade_charts1': {
             'title': '考试成绩曲线图',
             'x-field': 'create_time',
@@ -77,24 +77,8 @@ class GradeAdmin(object):# 成绩管理
     }
 
 
-# 批改主观题
-class SubjectiveAnswerAdmin(object):
-    list_display = ['id', 'student', 'exam', 'question', 'answer', 'score', 'create_time', 'update_time']
-    list_filter = ['student', 'exam', 'question', 'score']
-    list_editable = ['score']
-    search_fields = ['student', 'exam', 'question']
-    list_display_links = ['score']
-    list_per_page = 20
-    # list_editable = ['answer']
-    model_icon = 'fa fa-check-square-o'
-
-    def has_add_permission(self):
-        return False
-
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
 xadmin.site.register(Exam, ExamAdmin)
 xadmin.site.register(Paper, PaperAdmin)
 xadmin.site.register(Grade, GradeAdmin)
-xadmin.site.register(SubjectiveAnswer, SubjectiveAnswerAdmin)
-

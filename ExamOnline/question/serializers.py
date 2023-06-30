@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from question.models import Choice, Fill, Judge, Subjective
+from question.models import Choice, Fill, Judge, Program
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -21,7 +21,7 @@ class JudgeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SubjectiveSerializer(serializers.ModelSerializer):
+class ProgramSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subjective
+        model = Program
         fields = '__all__'

@@ -3,7 +3,7 @@
 import os
 import sys
 
-# manage.py is a command-line utility that lets you interact with this Django project in various ways.
+
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ExamOnline.settings')
     try:

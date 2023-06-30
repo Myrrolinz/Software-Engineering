@@ -6,7 +6,7 @@ from import_export import resources
 from user.resource import StudentResource
 
 
-class ClazzAdmin(object): # 班级管理
+class ClazzAdmin(object):
     list_display = ['id', 'year', 'major', 'clazz']
     list_filter = ['year', 'major']
     search_fields = ['id', 'year', 'major', 'clazz']
@@ -16,7 +16,7 @@ class ClazzAdmin(object): # 班级管理
     model_icon = 'fa fa-institution '
 
 
-class StudentAdmin(object): # 学生管理
+class StudentAdmin(object):
     list_display = ['id', 'name', 'user', 'gender', 'clazz']
     list_filter = ['gender', 'clazz']
     search_fields = ['id', 'name', 'clazz']
@@ -28,7 +28,7 @@ class StudentAdmin(object): # 学生管理
     import_export_args = {'import_resource_class' : StudentResource}
 
 
-class TeacherAdmin(object): # 教师管理
+class TeacherAdmin(object):
     list_display = ['id', 'name', 'user', 'gender', 'title', 'institute']
     list_filter = ['gender', 'title', 'institute']
     search_fields = ['id', 'name']

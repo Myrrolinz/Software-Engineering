@@ -1,6 +1,6 @@
 from import_export import resources
 
-from question.models import Choice, Fill, Judge, Subjective
+from question.models import Choice, Fill, Judge, Program
 
 
 class ChoiceResource(resources.ModelResource):
@@ -21,7 +21,7 @@ class JudgeResource(resources.ModelResource):
         fields = ('id', 'question', 'right_answer', 'analysis', 'score', 'level')
 
 
-class SubjectiveResource(resources.ModelResource):
+class ProgramResource(resources.ModelResource):
     class Meta:
-        model = Subjective
+        model = Program
         fields = ('id', 'question', 'answer_template', 'test_case', 'analysis', 'score', 'level')

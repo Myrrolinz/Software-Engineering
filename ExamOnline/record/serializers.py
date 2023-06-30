@@ -2,9 +2,9 @@ from rest_framework import serializers
 
 from exam.models import Practice
 from exam.serializers import PracticeSerializer
-from question.models import Choice, Fill, Judge, Subjective
-from question.serializers import ChoiceSerializer, FillSerializer, JudgeSerializer, SubjectiveSerializer
-from record.models import ChoiceRecord, FillRecord, SubjectiveRecord, JudgeRecord
+from question.models import Choice, Fill, Judge, Program
+from question.serializers import ChoiceSerializer, FillSerializer, JudgeSerializer, ProgramSerializer
+from record.models import ChoiceRecord, FillRecord, ProgramRecord, JudgeRecord
 from user.models import Student
 from user.serializers import StudentSerializer
 
@@ -60,18 +60,18 @@ class JudgeRecordSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SubjectiveRecordSerializer(serializers.ModelSerializer):
+class ProgramRecordSerializer(serializers.ModelSerializer):
     # 覆盖外键字段 只读
     practice = PracticeSerializer(read_only=True)
     student = StudentSerializer(read_only=True)
-    program = SubjectiveSerializer(read_only=True)
+    program = ProgramSerializer(read_only=True)
 
     # 用于创建的只写字段
     practice_id = serializers.PrimaryKeyRelatedField(queryset=Practice.objects.all(), source='practice',
                                                      write_only=True)
     student_id = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all(), source='student', write_only=True)
-    program_id = serializers.PrimaryKeyRelatedField(queryset=Subjective.objects.all(), source='program', write_only=True)
+    program_id = serializers.PrimaryKeyRelatedField(queryset=Program.objects.all(), source='program', write_only=True)
 
     class Meta:
-        model = SubjectiveRecord
+        model = ProgramRecord
         fields = '__all__'

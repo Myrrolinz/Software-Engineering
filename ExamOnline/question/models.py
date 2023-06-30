@@ -88,8 +88,8 @@ class Judge(models.Model):
         return self.question
 
 
-class Subjective(models.Model):
-    """主观题模型"""
+class Program(models.Model):
+    """编程题模型"""
     LEVEL_CHOICES = (
         ('1', '入门'),
         ('2', '简单'),
@@ -99,13 +99,14 @@ class Subjective(models.Model):
     )
     question = models.TextField("题目", max_length=200, default="")
     answer_template = models.TextField("答题模板", default="")
+    test_case = models.TextField("测试用例", default="")
     analysis = models.TextField("题目解析", default="")
     score = models.PositiveSmallIntegerField("分值", default=8)
     level = models.CharField("难度等级", max_length=1, choices=LEVEL_CHOICES, default='1')
 
     class Meta:
         ordering = ['id']
-        verbose_name = '主观题'
+        verbose_name = '编程题'
         verbose_name_plural = verbose_name
 
     def __str__(self):

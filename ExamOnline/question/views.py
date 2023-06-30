@@ -4,9 +4,8 @@ from rest_framework import mixins, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from exam.models import SubjectiveAnswer
-from question.models import Choice, Fill, Judge, Subjective
-from question.serializers import ChoiceSerializer, FillSerializer, JudgeSerializer, SubjectiveSerializer
+from question.models import Choice, Fill, Judge, Program
+from question.serializers import ChoiceSerializer, FillSerializer, JudgeSerializer, ProgramSerializer
 
 
 # Create your views here.
@@ -66,36 +65,54 @@ class JudgeListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return self.queryset
 
 
-class SubjectiveListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """主观题列表页"""
+class ProgramListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """编程题列表页"""
     # 这里定义一个默认的排序，否则会报错
-    queryset = Subjective.objects.all().order_by('?')[:0]
+    queryset = Program.objects.all().order_by('?')[:0]
     # 序列化
-    serializer_class = SubjectiveSerializer
+    serializer_class = ProgramSerializer
 
     # 重写queryset
     def get_queryset(self):
         # 题目数量
-        subjective_number = int(self.request.query_params.get("subjective_number"))
+        program_number = int(self.request.query_params.get("program_number"))
         level = int(self.request.query_params.get("level", 1))
 
-        if subjective_number:
-            self.queryset = Subjective.objects.all().filter(level=level).order_by('?')[:subjective_number]
+        if program_number:
+            self.queryset = Program.objects.all().filter(level=level).order_by('?')[:program_number]
         return self.queryset
 
 
-class UploadSubjective(APIView):
-    """上传主观题答案"""
+class CheckProgramApi(APIView):
+    """测试编程题"""
 
     def post(self, request):
         # 获取post提交的字典数据
         json_body = request.data
-        # 获取题目信息
-        exam_id = json_body.get("exam_id")
-        student_id = json_body.get("student_id")
-        question_id = json_body.get("question_id")
-        answer = json_body.get("answer")
-        identifier = json_body.get("identifier")
-        # 把id和answer存入数据库Subjective
-        SubjectiveAnswer.objects.create(student_id=student_id, question_id=question_id, answer=answer, exam_id=exam_id,identifier=identifier)
-        return Response({"message": "success"})
+
+        # 将要执行的answer写入python文件
+        with open(r'.\question\Solution.py', 'w') as f:
+            if json_body['answer']:
+                f.write(json_body['answer'])
+            else:
+                f.write('')
+            f.flush()
+        # 初始化subprocess
+        obj = subprocess.Popen(["python"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               universal_newlines=True)
+        try:
+            obj.stdin.write(json_body['program']['test_case'])
+            obj.stdin.close()
+
+            cmd_out = obj.stdout.read()
+            obj.stdout.close()
+            cmd_error = obj.stderr.read()
+            obj.stderr.close()
+            # print(cmd_out)
+            # print(cmd_error)  # 程序没有异常，只输出空行
+        except Exception as e:
+            return Response({'message': '程序运行出错'})
+        finally:
+            if 'OK' in cmd_error:
+                return Response({'message': 'pass'})
+            return Response({'message': cmd_error})

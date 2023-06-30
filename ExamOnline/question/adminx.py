@@ -1,7 +1,7 @@
 import xadmin
 
-from question.models import Choice, Fill, Judge, Subjective
-from question.resource import ChoiceResource, FillResource, JudgeResource, SubjectiveResource
+from question.models import Choice, Fill, Judge, Program
+from question.resource import ChoiceResource, FillResource, JudgeResource, ProgramResource
 
 
 class ChoiceAdmin(object):
@@ -38,7 +38,7 @@ class JudgeAdmin(object):
     import_export_args = {'import_resource_class': JudgeResource}
 
 
-class SubjectiveAdmin(object):
+class ProgramAdmin(object):
     list_display = ['id', 'question', 'analysis', 'score', 'level']
     list_filter = ['level']
     search_field = ['id', 'question']
@@ -46,10 +46,10 @@ class SubjectiveAdmin(object):
     list_per_page = 10
     # list_editable = ['question']
     model_icon = 'fa fa-laptop'
-    import_export_args = {'import_resource_class': SubjectiveResource}
+    import_export_args = {'import_resource_class': ProgramResource}
 
 
 xadmin.site.register(Choice, ChoiceAdmin)
 xadmin.site.register(Fill, FillAdmin)
 xadmin.site.register(Judge, JudgeAdmin)
-xadmin.site.register(Subjective, SubjectiveAdmin)
+xadmin.site.register(Program, ProgramAdmin)
