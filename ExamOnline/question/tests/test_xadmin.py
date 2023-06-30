@@ -3,15 +3,14 @@ from django.test import TestCase
 
 import xadmin
 
-from user.models import Student, Teacher, Clazz
 from import_export import resources
 
-from user.resource import StudentResource
-from user.adminx import ClazzAdmin, StudentAdmin, TeacherAdmin
+from user.models import Clazz
+from question.resource import ChoiceResource, FillResource, JudgeResource, SubjectiveResource
+from question.adminx import ChoiceAdmin, FillAdmin, JudgeAdmin, SubjectiveAdmin
 
 # Create your tests here.
-class ClazzAdminTest(TestCase):
-    """班级模型测试"""
+class ChoiceAdminTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -19,18 +18,19 @@ class ClazzAdminTest(TestCase):
         Clazz.objects.create(year='2020', major='计算机', clazz='1')
 
     def test_admin(self):
-        admin = ClazzAdmin()
-        self.assertEquals(admin.list_display, ['id', 'year', 'major', 'clazz'])
-        self.assertEquals(admin.list_filter, ['year', 'major'])
-        self.assertEquals(admin.search_fields, ['id', 'year', 'major', 'clazz'])
-        self.assertEquals(admin.list_display_links, ['clazz'])
+        admin = ChoiceAdmin()
+        self.assertEquals(admin.list_display, ['id', 'question', 'answer_A', 'answer_B', 'answer_C', 'answer_D',
+                    'right_answer', 'analysis', 'score', 'level'])
+        self.assertEquals(admin.list_filter, ['level'])
+        self.assertEquals(admin.search_fields, ['id', 'question'])
+        self.assertEquals(admin.list_display_links, ['question'])
         self.assertEquals(admin.list_per_page, 10)
-        self.assertEquals(admin.model_icon, 'fa fa-institution ')
+        self.assertEquals(admin.model_icon, 'fa fa-question-circle-o')
+        self.assertEquals(admin.import_export_args, {'import_resource_class': ChoiceResource})
 
 
 
-class StudentAdminTest(TestCase):
-    """班级模型测试"""
+class FillAdminTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -38,33 +38,32 @@ class StudentAdminTest(TestCase):
         Clazz.objects.create(year='2020', major='计算机', clazz='1')
 
     def test_admin(self):
-        admin = StudentAdmin()
-        self.assertEquals(admin.list_display, ['id', 'name', 'user', 'gender', 'clazz'])
-        self.assertEquals(admin.list_filter, ['gender', 'clazz'])
-        self.assertEquals(admin.search_fields, ['id', 'name', 'clazz'])
-        self.assertEquals(admin.list_display_links, ['name'])
+        admin = FillAdmin()
+        self.assertEquals(admin.list_display, ['id', 'question', 'right_answer', 'analysis', 'score', 'level'])
+        self.assertEquals(admin.list_filter, ['level'])
+        self.assertEquals(admin.search_field, ['id', 'question'])
+        self.assertEquals(admin.list_display_links, ['question'])
         self.assertEquals(admin.list_per_page, 10)
-        self.assertEquals(admin.model_icon, 'fa fa-user-circle-o')
-        self.assertEquals(admin.relfield_style, 'fk-ajax')
-        self.assertEquals(admin.import_export_args, {'import_resource_class' : StudentResource})
+        self.assertEquals(admin.model_icon, 'fa fa-edit ')
+        self.assertEquals(admin.import_export_args, {'import_resource_class': FillResource})
 
 
 
-class TeacherAdminTest(TestCase):
-    """班级模型测试"""
+class SubjectiveAdminTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
         #Set up non-modified objects used by all test methods
         Clazz.objects.create(year='2020', major='计算机', clazz='1')
-        
+
     def test_admin(self):
-        admin = TeacherAdmin()
-        self.assertEquals(admin.list_display, ['id', 'name', 'user', 'gender', 'title', 'institute'])
-        self.assertEquals(admin.list_filter, ['gender', 'title', 'institute'])
-        self.assertEquals(admin.search_fields, ['id', 'name'])
-        self.assertEquals(admin.list_display_links, ['name'])
+        admin = SubjectiveAdmin()
+        self.assertEquals(admin.list_display, ['id', 'question', 'analysis', 'score', 'level'])
+        self.assertEquals(admin.list_filter, ['level'])
+        self.assertEquals(admin.search_field, ['id', 'question'])
+        self.assertEquals(admin.list_display_links, ['question'])
         self.assertEquals(admin.list_per_page, 10)
-        self.assertEquals(admin.model_icon, 'fa fa-graduation-cap')
+        self.assertEquals(admin.model_icon, 'fa fa-laptop')
+        self.assertEquals(admin.import_export_args, {'import_resource_class': SubjectiveResource})
 
     

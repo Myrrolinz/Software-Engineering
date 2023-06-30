@@ -7,6 +7,8 @@ from django.db.models import Q
 from django.contrib.auth.hashers import make_password, check_password 
 from exam.models import SubjectiveAnswer
 from question.models import Choice, Fill, Judge, Subjective
+from user.models import Clazz, Student
+from exam.models import Exam, Paper
 from question.views import ChoiceListViewSet, FillListViewSet, JudgeListViewSet, SubjectiveListViewSet, UploadSubjective
 from question.serializers import ChoiceSerializer, FillSerializer, JudgeSerializer, SubjectiveSerializer
 from rest_framework import status
@@ -29,48 +31,16 @@ class ChoiceListViewSetTest(TestCase):
     
     def test_get_queryset(self):
         queryset=ChoiceListViewSet()
-        user1 = queryset.get_queryset()
-        print(user1)
-        #self.assertEqual(user1, User.objects.get(id=1))
+        user1 = queryset.serializer_class
+        #print(user1)
+        self.assertEqual(user1, ChoiceSerializer)
 
-'''
+
 class MockRequest():
     def __init__(self, data):
         self.data=data
-
-class RegisterViewSetTest(TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        #Create 13 authors for pagination tests
-        number_of_users = 13
-        for user_num in range(number_of_users):
-            User.objects.create(username='user%s' % user_num, password = '654321%s' % user_num,)
-        Clazz.objects.create(year='2020', major='计算机', clazz='1')
-        Student.objects.create(name='syq', user=User.objects.get(id=1), gender='f', clazz=Clazz.objects.get(id=1))
     
-    def test_create_user_fail(self):
-        view = RegisterViewSet()
-        data = {'username': 'user2', 'name': 'abc'}
-        url = "localhost:8000/register"
-        mockrequest = MockRequest(data)
-        requests.post = mock.Mock(return_value=mockrequest)
-        res = requests.post(url, data=data)
-        result = view.create(res)
-        self.assertEqual(result.status_code, 201)
-    
-    def test_create_user(self):
-        view = RegisterViewSet()
-        data = {'username': 'user14', 'name': 'abc', 'password': 123456}
-        url = "localhost:8000/register"
-        mockrequest = MockRequest(data)
-        requests.post = mock.Mock(return_value=mockrequest)
-        res = requests.post(url, data=data)
-        result = view.create(res)
-        #user_detail = UserDetailSerializer(data=request.data)
-        self.assertEqual(result.status_code, 200)
-    
-class UpdatePwdApiTest(TestCase):
+class UploadSubjectiveTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -80,71 +50,17 @@ class UpdatePwdApiTest(TestCase):
             User.objects.create(username='user%s' % user_num, password = '654321%s' % user_num,)
         Clazz.objects.create(year='2020', major='计算机', clazz='1')
         Student.objects.create(name='syq', user=User.objects.get(id=1), gender='f', clazz=Clazz.objects.get(id=1))
+        Subjective.objects.create(question='问题1', answer_template='1234567答题的模板', level='2')
+        Paper.objects.create(name='试卷1', score=120)
+        temp = Exam.objects.create(name='测试1', exam_date='2023-1-1', major='计算机', paper=Paper.objects.get(id=1))
+        temp_class = Clazz.objects.filter(id=1)
+        temp.clazzs.set(temp_class) 
     
-    def test_update_pwd_fail(self):
-        view = UpdatePwdApi()
-        data = {'userid': '2', 'oldpwd': '654321', 'newpwd': '6543212'}
+    def test_upload_subjective(self):
+        view = UploadSubjective()
+        data = {"exam_id": '1', "student_id": '1', "question_id": '1', "answer": 'abcdefg', "identifier": ' '}
         mockrequest = MockRequest(data)
         requests.post = mock.Mock(return_value=mockrequest)
         res = requests.post(data=data)
-        result = view.patch(res)
-        self.assertEqual(result.data, {'msg': 'fail'})
-    
-    def test_update_pwd(self):
-        view = UpdatePwdApi()
-        data = {'userid': '2', 'oldpwd': '6543211', 'newpwd': '654321'}
-        mockrequest = MockRequest(data)
-        requests.post = mock.Mock(return_value=mockrequest)
-        res = requests.post(data=data)
-        result = view.patch(res)
-        self.assertEqual(result.data, {'msg': 'success'})
-
-
-class StudentViewSetTest(TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        #Create 13 authors for pagination tests
-        number_of_users = 13
-        for user_num in range(number_of_users):
-            User.objects.create(username='user%s' % user_num, password = '654321%s' % user_num,)
-        Clazz.objects.create(year='2020', major='计算机', clazz='1')
-        for user_num in range(number_of_users):
-            Student.objects.create(name='syq', user=User.objects.get(id=user_num+1), gender='f', clazz=Clazz.objects.get(id=1))
-    
-    def test_view_url_exists(self):
-        resp = self.client.get('/students', follow=True)
-        self.assertEqual(resp.status_code, 200)
-    
-    def test_lists_all_students(self):
-        resp = self.client.get('/students', follow=True)
-        self.assertEqual(resp.status_code, 200)
-        number_of_users = 13
-        for user_num in range(number_of_users):
-            self.assertEqual(resp.data[user_num]['id'],user_num+1)
-            self.assertEqual(resp.data[user_num]['user'],user_num+1)
-        
-class ClazzListViewSetTest(TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        #Create 13 authors for pagination tests
-        number_of_users = 13
-        for user_num in range(number_of_users):
-            User.objects.create(username='user%s' % user_num, password = '654321%s' % user_num,)
-            Clazz.objects.create(year='2020', major='计算机', clazz='1%s' % user_num,)
-        
-    
-    def test_view_url_exists(self):
-        resp = self.client.get('/clazzs', follow=True)
-        self.assertEqual(resp.status_code, 200)
-    
-    def test_lists_all_clazz(self):
-        resp = self.client.get('/clazzs', follow=True)
-        self.assertEqual(resp.status_code, 200)
-        number_of_users = 13
-        for user_num in range(number_of_users):
-            self.assertEqual(resp.data[user_num]['id'], user_num+1)
-            self.assertEqual(resp.data[user_num]['clazz'], str(1)+str(user_num))
-'''
-
+        result = view.post(res)
+        self.assertEqual(result.data, {"message": "success"})
