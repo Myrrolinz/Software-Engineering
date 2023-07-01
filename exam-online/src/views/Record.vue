@@ -91,6 +91,15 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-row', Element)
+
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
+
 	export default {
 		data() {
 			return {
@@ -113,7 +122,7 @@
 					params: {
 						page: this.page,
 						page_size: this.page_size,
-						practice_id: this.$route.query.practice_id,
+						practice_id: 1,//this.$route.query.practice_id,
 					}
 				}).then(res => {
 					this.loading = false
@@ -128,7 +137,7 @@
 					params: {
 						page: this.page,
 						page_size: this.page_size,
-						practice_id: this.$route.query.practice_id,
+						practice_id: 2,//this.$route.query.practice_id,
 					}
 				}).then(res => {
 					this.loading = false
@@ -143,7 +152,7 @@
 					params: {
 						page: this.page,
 						page_size: this.page_size,
-						practice_id: this.$route.query.practice_id,
+						practice_id: 3,//this.$route.query.practice_id,
 					}
 				}).then(res => {
 					this.loading = false
@@ -158,7 +167,7 @@
 					params: {
 						page: this.page,
 						page_size: this.page_size,
-						practice_id: this.$route.query.practice_id,
+						practice_id: 4,//this.$route.query.practice_id,
 					}
 				}).then(res => {
 					this.loading = false

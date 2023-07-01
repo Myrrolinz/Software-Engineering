@@ -15,8 +15,8 @@
 				<el-form-item label="判断题:">
 					<el-slider v-model="form.judge_number" :step="1" :max="10" show-stops></el-slider>
 				</el-form-item>
-				<el-form-item label="主观题:">
-					<el-slider v-model="form.subjective_number" :step="1" :max="10" show-stops></el-slider>
+				<el-form-item label="编程题:">
+					<el-slider v-model="form.program_number" :step="1" :max="10" show-stops></el-slider>
 				</el-form-item>
 				<el-form-item label="难易度:">
 					<el-rate v-model="form.level" :texts="level" show-text></el-rate>
@@ -48,6 +48,21 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-button', Element)
+
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
+
+	import VueRouter from '@/router/index.js'//'vue-router'
+	Vue.component('router-link', VueRouter)
+
+	import store from '@/store'
+	Vue.prototype.$store = store
+
 	import Pagination from '@/components/Pagination.vue'
 	export default {
 		data() {
@@ -56,7 +71,7 @@
 					choice_number: 1,
 					fill_number: 1,
 					judge_number: 1,
-					subjective_number: 1,
+					program_number: 1,
 					level: 1,
 				},
 				exam: {

@@ -2,26 +2,26 @@
 	<div id="register">
 		<el-container>
 			<el-header>
-				<h1 style="color: #FFFFFF;margin-top: 50px;">Python在线考试系统</h1>
+				<h1 style="color: #FFFFFF;margin-top: 50px;">英语四六级在线练习系统</h1>
 			</el-header>
 			<el-main>
 				<div id="register-from">
 					<el-form ref="registerForm" status-icon :model="registerForm" :rules="rules">
 						<el-form-item label="学号" prop="username">
 							<el-input v-model="registerForm.username" autocomplete="off"></el-input>
-							</el-input>
+						<!-- 	</el-input> -->
 						</el-form-item>
 						<el-form-item label="姓名" prop="name">
 							<el-input v-model="registerForm.name" autocomplete="off"></el-input>
-							</el-input>
+						<!--	</el-input> -->
 						</el-form-item>
 						<el-form-item label="密码" prop="password">
 							<el-input type="password" v-model="registerForm.password" autocomplete="off"></el-input>
-							</el-input>
+						<!--	</el-input> -->
 						</el-form-item>
 						<el-form-item label="确认密码" prop="checkpwd">
 							<el-input type="password" v-model="registerForm.checkpwd" autocomplete="off"></el-input>
-							</el-input>
+						<!--	</el-input> -->
 						</el-form-item>
 						<slide-verification @check-result="checkResult"></slide-verification>
 						<br />
@@ -40,6 +40,17 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-container', Element)
+
+	import VueRouter from '@/router/index.js'//'vue-router'
+
+	//Vue.use(VueRouter)
+	Vue.component('router-link', VueRouter)
+
 	import SlideVerification from '@/components/SlideVerification.vue'
 	export default {
 		data() {

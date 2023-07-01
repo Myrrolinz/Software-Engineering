@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TimeCountDown/> snapshot测试 1`] = `
+"<div>
+  <div style=\\"text-align: center; color: red;\\">
+    <h2>倒计时 NaN: NaN: NaN</h2>
+  </div>
+</div>"
+`;

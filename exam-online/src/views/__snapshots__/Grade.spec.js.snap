@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Grade/> snapshot测试 1`] = `
+"<div id=\\"grade\\">
+  <el-table-stub data=\\"\\" fit=\\"true\\" border=\\"true\\" showheader=\\"true\\" selectonindeterminate=\\"true\\" indent=\\"16\\" treeprops=\\"[object Object]\\" style=\\"width: 100%;\\">
+    <el-table-column-stub type=\\"index\\" width=\\"50\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" label=\\"评卷时间\\" prop=\\"creat_time\\" sortable=\\"true\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" label=\\"考试名称\\" prop=\\"exam.name\\" width=\\"300\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" label=\\"得分\\" prop=\\"score\\" width=\\"150\\" sortable=\\"true\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" label=\\"考试时间\\" prop=\\"exam.exam_date\\" width=\\"180\\" sortable=\\"true\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" label=\\"筛选\\" prop=\\"score\\" width=\\"200\\" resizable=\\"true\\" filtermethod=\\"[Function]\\" filters=\\"[object Object],[object Object]\\" filterplacement=\\"bottom-end\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+  </el-table-stub>
+  <pagination-stub></pagination-stub>
+</div>"
+`;

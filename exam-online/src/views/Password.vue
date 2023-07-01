@@ -4,15 +4,12 @@
 			<h1>修改密码</h1>
 			<el-form-item label="原密码" prop="oldpwd">
 				<el-input v-model="pwdForm.oldpwd" autocomplete="off"></el-input>
-				</el-input>
 			</el-form-item>
 			<el-form-item label="新密码" prop="newpwd">
 				<el-input type="password" v-model="pwdForm.newpwd" autocomplete="off"></el-input>
-				</el-input>
 			</el-form-item>
 			<el-form-item label="确认密码" prop="checkpwd">
 				<el-input type="password" v-model="pwdForm.checkpwd" autocomplete="off"></el-input>
-				</el-input>
 			</el-form-item>
 			<el-button type="primary" @click.native.prevent="updatePwd('pwdForm')">确认更改</el-button>
 			<el-button @click="cancel">取消</el-button>
@@ -21,6 +18,19 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-button', Element)
+
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
+
+	import router from '@/router/index.js'//'vue-router'
+	Vue.$route = router
+	
+
 	export default {
 		data() {
 			var validatePass = (rule, value, callback) => {
@@ -92,7 +102,7 @@
 		},
 		computed: {
 			getType() {
-				return this.$route.params.type;
+				return NULL;//this.$route.params.type;
 			}
 		},
 		methods: {
@@ -124,11 +134,12 @@
 				});
 			},
 			cancel() {
-				this.$router.push('/')
+				//this.$router.push('/')
+				router.push('/')
 			}
 		},
 		created() {
-			this.pwdForm.userid = this.$route.params.student.user
+			this.pwdForm.userid = 1;//this.$route.params.student.user
 		}
 	}
 </script>

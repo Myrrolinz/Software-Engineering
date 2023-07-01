@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Pagination/> snapshot测试 1`] = `
+"<div id=\\"pagination\\">
+  <el-pagination current-page=\\"1\\" page-sizes=\\"5,10\\" page-size=\\"5\\" layout=\\"total, sizes, prev, pager, next, jumper\\"></el-pagination>
+</div>"
+`;

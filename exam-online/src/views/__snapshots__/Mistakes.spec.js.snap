@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Mistakes/> snapshot测试 1`] = `
+"<div>
+  <h1>错题本</h1>
+  <ul>
+    <li>
+      <h2>英语单项选择题1</h2>
+      <p>What is the capital of the United States?</p>
+      <ol>
+        <li>
+          New York
+        </li>
+        <li>
+          Washington D.C.
+        </li>
+        <li>
+          Los Angeles
+        </li>
+        <li>
+          Chicago
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题2</h2>
+      <p>Who wrote the novel \\"Pride and Prejudice\\"?</p>
+      <ol>
+        <li>
+          Jane Austen
+        </li>
+        <li>
+          Emily Bronte
+        </li>
+        <li>
+          Charlotte Bronte
+        </li>
+        <li>
+          Virginia Woolf
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题3</h2>
+      <p>What is the largest ocean in the world?</p>
+      <ol>
+        <li>
+          Atlantic Ocean
+        </li>
+        <li>
+          Indian Ocean
+        </li>
+        <li>
+          Arctic Ocean
+        </li>
+        <li>
+          Pacific Ocean
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题4</h2>
+      <p>What is the smallest planet in our solar system?</p>
+      <ol>
+        <li>
+          Mercury
+        </li>
+        <li>
+          Venus
+        </li>
+        <li>
+          Earth
+        </li>
+        <li>
+          Mars
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题5</h2>
+      <p>What is the chemical symbol for gold?</p>
+      <ol>
+        <li>
+          Gd
+        </li>
+        <li>
+          Au
+        </li>
+        <li>
+          Ag
+        </li>
+        <li>
+          Fe
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题6</h2>
+      <p>What is the highest mountain in the world?</p>
+      <ol>
+        <li>
+          Mount Everest
+        </li>
+        <li>
+          K2
+        </li>
+        <li>
+          Kangchenjunga
+        </li>
+        <li>
+          Lhotse
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题7</h2>
+      <p>Who painted the Mona Lisa?</p>
+      <ol>
+        <li>
+          Leonardo da Vinci
+        </li>
+        <li>
+          Michelangelo
+        </li>
+        <li>
+          Raphael
+        </li>
+        <li>
+          Donatello
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题8</h2>
+      <p>What is the capital of Australia?</p>
+      <ol>
+        <li>
+          Sydney
+        </li>
+        <li>
+          Melbourne
+        </li>
+        <li>
+          Canberra
+        </li>
+        <li>
+          Brisbane
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题9</h2>
+      <p>What is the world's longest river?</p>
+      <ol>
+        <li>
+          Nile River
+        </li>
+        <li>
+          Amazon River
+        </li>
+        <li>
+          &lt;EUGPSCoordinates&gt; River
+        </li>
+        <li>
+          &lt;EUGPSCoordinates&gt; River
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h2>英语单项选择题10</h2>
+      <p>Which planet is known as the Red Planet?</p>
+      <ol>
+        <li>
+          Mars
+        </li>
+        <li>
+          Jupiter
+        </li>
+        <li>
+          Saturn
+        </li>
+        <li>
+          Venus
+        </li>
+      </ol>
+    </li>
+  </ul>
+</div>"
+`;

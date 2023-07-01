@@ -38,6 +38,17 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-form-item', Element)
+	
+	import store from '@/store'
+
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
+
 	import Pagination from '@/components/Pagination.vue'
 	export default {
 		data() {
@@ -64,7 +75,7 @@
 					params: {
 						page: this.page,
 						page_size: this.page_size,
-						student_id: this.$store.state.student.id,
+						student_id: store.state.student.id,//this.$store.state.student.id,
 					}
 				}).then(res => {
 					this.pagination = res.data
@@ -94,7 +105,7 @@
 							page: this.page,
 							page_size: this.page_size,
 							search: this.key,
-							student_id: this.$store.state.student.id,
+							student_id: store.state.student.id,//this.$store.state.student.id,
 						}
 					}).then(res => {
 						if (res.status == 200) {
@@ -105,16 +116,17 @@
 					this.getExamInfo()
 				}
 			},
-			//跳转到答题页  
+			//跳转到答题页
 			toAnswer(index) {
-				//用localStorage存储考试信息和试卷信息  
-				localStorage.removeItem('exam'); //清除缓存
-				localStorage.removeItem('paper'); //清除缓存
-				sessionStorage.removeItem('isPractice'); //清除缓存
-				localStorage.setItem("exam", JSON.stringify(this.pagination.results[index])); //存储考试信息
-				localStorage.setItem("paper", JSON.stringify(this.pagination.results[index].paper)); //存储试卷信息
-				this.$store.commit("setIsPractice", false) //设置是否是练习模式
-				this.$router.push({ //跳转到答题页
+				//用localStorage存储考试信息和试卷信息
+				localStorage.removeItem('exam');
+				localStorage.removeItem('paper');
+				sessionStorage.removeItem('isPractice')
+				localStorage.setItem("exam", JSON.stringify(this.pagination.results[index]));
+				localStorage.setItem("paper", JSON.stringify(this.pagination.results[index].paper));
+				//this.$store.commit("setIsPractice", false)
+				store.commit("setIsPractice", false)
+				this.$router.push({
 					path: '/answer',
 					query: {}
 				})

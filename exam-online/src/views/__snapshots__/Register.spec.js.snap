@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Register/> snapshot测试 1`] = `
+"<div id=\\"register\\">
+  <el-container-stub>
+    <el-header-stub height=\\"60px\\">
+      <h1 style=\\"color: rgb(255, 255, 255); margin-top: 50px;\\">英语四六级在线练习系统</h1>
+    </el-header-stub>
+    <el-main-stub>
+      <div id=\\"register-from\\">
+        <el-form-stub model=\\"[object Object]\\" rules=\\"[object Object]\\" labelsuffix=\\"\\" statusicon=\\"true\\" showmessage=\\"true\\" validateonrulechange=\\"true\\">
+          <el-form-item-stub label=\\"学号\\" prop=\\"username\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+            <el-input-stub type=\\"text\\" autocomplete=\\"off\\" validateevent=\\"true\\"></el-input-stub>
+          </el-form-item-stub>
+          <el-form-item-stub label=\\"姓名\\" prop=\\"name\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+            <el-input-stub type=\\"text\\" autocomplete=\\"off\\" validateevent=\\"true\\"></el-input-stub>
+          </el-form-item-stub>
+          <el-form-item-stub label=\\"密码\\" prop=\\"password\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+            <el-input-stub type=\\"password\\" autocomplete=\\"off\\" validateevent=\\"true\\"></el-input-stub>
+          </el-form-item-stub>
+          <el-form-item-stub label=\\"确认密码\\" prop=\\"checkpwd\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+            <el-input-stub type=\\"password\\" autocomplete=\\"off\\" validateevent=\\"true\\"></el-input-stub>
+          </el-form-item-stub>
+          <slide-verification-stub></slide-verification-stub> <br>
+          <el-button-stub type=\\"primary\\" icon=\\"\\" nativetype=\\"button\\">注册</el-button-stub>
+          <div class=\\"text-foot\\">
+            已有账号?
+            <router-link-stub to=\\"/login\\" class=\\"login-link\\">
+              登录
+            </router-link-stub>
+          </div>
+        </el-form-stub>
+      </div>
+    </el-main-stub>
+  </el-container-stub>
+</div>"
+`;

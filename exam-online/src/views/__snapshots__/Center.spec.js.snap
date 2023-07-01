@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Center/> snapshot测试 1`] = `
+"<div class=\\"center\\">
+  <el-form-stub status-icon=\\"\\" model=\\"[object Object]\\" rules=\\"[object Object]\\" label-width=\\"80px\\">
+    <h1>个人中心</h1>
+    <el-form-item-stub label=\\"姓名\\" prop=\\"name\\">
+      <el-input-stub></el-input-stub>
+    </el-form-item-stub>
+    <el-form-item-stub label=\\"性别\\" prop=\\"gender\\">
+      <el-select-stub placeholder=\\"请选择性别\\">
+        <el-option-stub value=\\"m\\" label=\\"男\\"></el-option-stub>
+        <el-option-stub value=\\"f\\" label=\\"女\\"></el-option-stub>
+      </el-select-stub>
+    </el-form-item-stub>
+    <el-form-item-stub label=\\"班级\\" prop=\\"clazz\\">
+      <el-select-stub placeholder=\\"请选择年级\\"></el-select-stub>
+    </el-form-item-stub>
+    <el-form-item-stub>
+      <el-button-stub type=\\"primary\\" icon=\\"\\" nativetype=\\"button\\">确认修改</el-button-stub>
+      <el-button-stub type=\\"default\\" icon=\\"\\" nativetype=\\"button\\">取消</el-button-stub>
+    </el-form-item-stub>
+  </el-form-stub>
+</div>"
+`;

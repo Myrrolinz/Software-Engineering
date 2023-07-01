@@ -2,7 +2,7 @@
 	<div id="login">
 		<el-container>
 			<el-header>
-				<h1 style="color: #FFFFFF;margin-top: 50px;">Python在线考试系统</h1>
+				<h1 style="color: #FFFFFF;margin-top: 50px;">英语四六级在线练习系统</h1>
 			</el-header>
 			<el-main>
 				<div id="login-from">
@@ -32,6 +32,18 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-button', Element)
+	
+	import store from '@/store'
+	Vue.prototype.$store = store
+
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
+
 	import SlideVerification from '@/components/SlideVerification.vue'
 	export default {
 		data() {

@@ -37,6 +37,21 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-form-item', Element)
+	Vue.component('el-form', Element)
+	Vue.component('el-input', Element)
+	Vue.component('el-select', Element)
+	
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
+	
+
+	import store from '@/store'
+
 	export default {
 		data() {
 			return {
@@ -110,7 +125,8 @@
 									type: 'success'
 								});
 								//更新缓存
-								this.$store.commit("sestStudent", this.centerForm)
+								//this.$store.commit("sestStudent", this.centerForm)
+								store.commit("sestStudent", this.centerForm)
 							} else {
 								this.$message({
 									type: '更新个人信息失败',
@@ -142,7 +158,7 @@
 			}
 		},
 		created() {
-			this.centerForm = this.$store.state.student;
+			this.centerForm = store.state.student;//this.$store.state.student;
 			this.getClazzInfo()
 		}
 	}

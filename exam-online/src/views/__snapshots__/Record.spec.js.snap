@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Record/> snapshot测试 1`] = `
+"<div id=\\"record\\">
+  <div id=\\"choice-record\\" class=\\"type\\">
+    <h2>选择题</h2>
+  </div>
+  <div id=\\"fill-record\\" class=\\"type\\">
+    <h2>填空题</h2>
+  </div>
+  <div id=\\"judge-record\\" class=\\"type\\">
+    <h2>判断题</h2>
+  </div>
+  <div id=\\"program-record\\" class=\\"type\\">
+    <h2>编程题</h2>
+  </div>
+</div>"
+`;

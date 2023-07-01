@@ -9,7 +9,7 @@
 						<el-menu-item index="/exam">考试中心</el-menu-item>
 						<el-menu-item index="/practice">模拟练习</el-menu-item>
 						<el-menu-item index="/grade">查询成绩</el-menu-item>
-						<el-menu-item index="/mistake" disabled>错题本</a></el-menu-item>
+						<el-menu-item index="/mistakes">错题本</el-menu-item>
 					</el-menu>
 					<el-dropdown>
 						<span class="el-dropdown-link" style="height: 50px;">

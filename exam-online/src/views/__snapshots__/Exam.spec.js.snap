@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Exam/> snapshot测试 1`] = `
+"<div id=\\"exam\\">
+  <el-row-stub tag=\\"div\\" type=\\"flex\\" justify=\\"center\\">
+    <el-col-stub span=\\"4\\" tag=\\"div\\">
+      <el-input-stub type=\\"text\\" autocomplete=\\"off\\" validateevent=\\"true\\" prefixicon=\\"el-icon-search\\" clearable=\\"true\\" placeholder=\\"请输入考试名称\\"></el-input-stub>
+    </el-col-stub>
+    <el-col-stub span=\\"4\\" tag=\\"div\\">
+      <el-button-stub type=\\"primary\\" icon=\\"\\" nativetype=\\"button\\">搜索试卷</el-button-stub>
+    </el-col-stub>
+  </el-row-stub>
+  <el-row-stub tag=\\"div\\" justify=\\"start\\">
+    <h3 style=\\"border-left: 10px solid rgb(220, 208, 65);\\">考试列表</h3>
+    <div style=\\"padding-left: 15px;\\"></div>
+  </el-row-stub>
+  <pagination-stub></pagination-stub>
+</div>"
+`;

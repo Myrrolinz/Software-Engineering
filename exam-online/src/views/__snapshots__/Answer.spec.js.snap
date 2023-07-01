@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Answer/> snapshot测试 1`] = `
+"<div id=\\"answer\\">
+  <el-container>
+    <el-aside width=\\"300px\\">
+      <el-card shadow=\\"hover\\" class=\\"box-card\\">
+        <time-count-down-stub></time-count-down-stub>
+        <el-divider content-position=\\"center\\">选择题</el-divider>
+        <el-row type=\\"flex\\" justify=\\" space-around \\" class=\\"question-tag\\">
+          <el-col span=\\"24\\"></el-col>
+        </el-row>
+        <el-divider content-position=\\"center\\">填空题</el-divider>
+        <el-row class=\\"question-tag\\">
+          <el-col span=\\"24\\"></el-col>
+        </el-row>
+        <el-divider content-position=\\"center\\">判断题</el-divider>
+        <el-row class=\\"question-tag\\">
+          <el-col span=\\"24\\"></el-col>
+        </el-row>
+        <el-divider content-position=\\"center\\">编程题</el-divider>
+        <el-row class=\\"question-tag\\">
+          <el-col span=\\"24\\"></el-col>
+        </el-row>
+        <el-divider></el-divider>
+        <div class=\\"bottom clearfix\\">
+          <el-tag type=\\"primary\\" effect=\\"dark\\"></el-tag>已答
+          <el-tag type=\\"primary\\" effect=\\"plain\\"></el-tag>未答
+          <el-tag type=\\"success\\" effect=\\"dark\\"></el-tag>当前
+          <br> <br>
+          <el-button type=\\"primary\\" class=\\"button\\">交卷</el-button>
+        </div>
+      </el-card>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <el-card shadow=\\"hover\\" class=\\"box-card\\" style=\\"width: auto;\\">
+          <div id=\\"information\\">
+            <el-row type=\\"flex\\" justify=\\"center\\">
+              <el-col span=\\"4\\"><span>学号：</span></el-col>
+              <el-col span=\\"4\\"><span>姓名：</span></el-col>
+              <el-col span=\\"4\\"><span>性别：男</span></el-col>
+              <el-col span=\\"4\\"><span>专业：</span></el-col>
+              <el-col span=\\"4\\"><span>年级：</span></el-col>
+              <el-col span=\\"4\\"><span>班级：</span></el-col>
+            </el-row>
+          </div>
+        </el-card>
+      </el-header>
+      <el-main>
+        <el-card shadow=\\"hover\\" class=\\"box-card\\" style=\\"width: 1110px; height: 570px; margin-top: 20px;\\"> </el-card>
+      </el-main>
+      <el-footer>
+        <div class=\\"box-div\\">
+          <el-row type=\\"flex\\" justify=\\"start\\">
+            <el-col span=\\"4\\" offset=\\"6\\">
+              <el-button type=\\"primary\\">上一题</el-button>
+            </el-col>
+            <el-col span=\\"4\\">
+              <el-button type=\\"primary\\">下一题</el-button>
+            </el-col>
+          </el-row>
+        </div>
+      </el-footer>
+    </el-container>
+  </el-container>
+</div>"
+`;

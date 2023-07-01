@@ -35,9 +35,9 @@
 					<el-divider content-position="center">编程题</el-divider>
 					<el-row class="question-tag">
 						<el-col :span="24">
-							<el-tag v-for="(item, index) in subjective" :key="item.id" :type="index + subjectivePos == current ? 'success' : ''"
-							 :effect="index + subjectivePos == current || answer[3][index] != null ? 'dark' : 'plain'" @click="changeQuestion(index+subjectivePos)">
-								{{ index + subjectivePos }}
+							<el-tag v-for="(item, index) in programs" :key="item.id" :type="index + programPos == current ? 'success' : ''"
+							 :effect="index + programPos == current || answer[3][index] != null ? 'dark' : 'plain'" @click="changeQuestion(index+programPos)">
+								{{ index + programPos }}
 							</el-tag>
 						</el-col>
 					</el-row>
@@ -101,12 +101,22 @@
 								<el-radio label="F" border>错误</el-radio><br />
 							</el-radio-group>
 						</div>
-						<div id="subjective" v-for="(item, index) in subjective" v-show="index + subjectivePos == current">
-							<h1>{{index + subjectivePos}}. {{item.question}} [{{item.score}}分]</h1>
+						<div id="program" v-for="(item, index) in programs" v-show="index + programPos == current">
+							<h1>{{index + programPos}}. {{item.question}} [{{item.score}}分]</h1>
 							<el-row type="flex" justify="space-around">
 								<el-col :span="10">
-									主观题书写区域
+									编程区
 									<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 18}" v-model="answer[3][index]">
+									</el-input>
+								</el-col>
+								<el-col :span="4">
+									<el-button type="success" @click="checkProgram(index)" style="margin-top: 20px;">测试</el-button>
+								</el-col>
+								<el-col :span="10">
+									<!-- <el-input type="textarea" :autosize="{ minRows: 18, maxRows: 30}" v-model="item.test_case" disabled>
+									</el-input> -->
+									输出信息
+									<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 18}" v-model="testMsg" disabled>
 									</el-input>
 								</el-col>
 							</el-row>
@@ -131,19 +141,14 @@
 </template>
 
 <script>
-	import TimeCountDown from '@/components/TimeCountDown.vue'
-  //创建8位字符串标识符，每次页面刷新的时候都会获得新的标识符
-  function generateRandomString() {
-      let result = '';
-      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let charactersLength = characters.length;
-      for (let i = 0; i < 8; i++) {
-          result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      }
-      return result;
-  }
-  var identifier = generateRandomString();
+	import Vue from 'vue'
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
 
+	import store from '@/store'
+	//$store = store
+
+	import TimeCountDown from '@/components/TimeCountDown.vue'
 	export default {
 		data() {
 			return {
@@ -151,7 +156,7 @@
 				choices: [],
 				fills: [],
 				judges: [],
-				subjective: [],
+				programs: [],
 				answer: [
 					[],
 					[],
@@ -174,17 +179,17 @@
 			judgePos() {
 				return this.choices.length + this.fills.length + 1;
 			},
-			subjectivePos() {
+			programPos() {
 				return this.choices.length + this.fills.length + this.judges.length + 1;
 			},
 			totalNum() {
-				return this.choices.length + this.fills.length + this.judges.length + this.subjective.length;
+				return this.choices.length + this.fills.length + this.judges.length + this.programs.length;
 			},
 			getStudent() {
-				return this.$store.state.student;
+				return store.state.student;//this.$store.state.student;
 			},
 			getUser() {
-				return this.$store.state.user;
+				return store.state.user;//this.$store.state.user;
 			},
 			getPaper() {
 				return localStorage.getItem('paper') ? JSON.parse(localStorage.getItem('paper')) : {};
@@ -196,7 +201,7 @@
 				return localStorage.getItem('practice') ? JSON.parse(localStorage.getItem('practice')) : {};
 			},
 			isPractice() {
-				return this.$store.state.isPractice;
+				return store.state.isPractice;//this.$store.state.isPractice;
 			}
 		},
 		methods: {
@@ -251,16 +256,16 @@
 					console.log(error)
 				})
 			},
-			// 获取主观题
+			// 获取编程题
 			getProgramInfo() {
-				this.$axios(`/api/subjective/?format=json`, {
+				this.$axios(`/api/programs/?format=json`, {
 					params: {
-						subjective_number: this.getPaper.subjective_number,
+						program_number: this.getPaper.program_number,
 						level: this.getPaper.level
 					}
 				}).then(res => {
-					this.subjective = res.data
-					console.log(this.subjective)
+					this.programs = res.data
+					console.log(this.programs)
 					//如果是编程题，第一次加载答题模板
 					this.loadProgram();
 				}).catch(error => {
@@ -293,15 +298,45 @@
 				this.current = number
 				//如果是编程题，第一次加载答题模板
 				this.loadProgram();
-			},
+			},	
 			// 第一次加载编程题答题模板
 			loadProgram() {
-				let index = this.current - parseInt(this.subjectivePos)
+				let index = this.current - parseInt(this.programPos)
 				if (index >= 0 && this.answer[3][index] == null) {
-					this.answer[3][index] = this.subjective[index].answer_template;
+					this.answer[3][index] = this.programs[index].answer_template;
 				}
 				// 清空输出信息
 				this.testMsg = null;
+			},
+			// 测试编程题
+			checkProgram(index) {
+				const msg = this
+				axios.post(`api/check-program/`, {
+					'answer': this.answer[3][index] == undefined ? '' : this.answer[3][index],
+					'program': this.programs[index]
+				}).then(res => { //处理成功的函数 相当于success
+					if (res) {
+						if (res.data.message == 'pass') {
+							msg.$message({
+								message: '恭喜你，通过过测试',
+								type: 'success'
+							});
+						} else {
+							msg.$message({
+								message: '错误，未通过测试',
+								type: 'warning'
+							});
+						}
+						this.testMsg = res.data.message
+					} else {
+						msg.$message({
+							message: '未响应',
+						});
+					}
+				}).catch(function(error) { //错误处理 相当于error
+					console.log(error)
+					this.testMsg = res.data.error
+				})
 			},
 			//阅卷
 			goOverPaper() {
@@ -322,11 +357,11 @@
 							your_answer: this.answer[0][i]
 						}).then(res => {
 							console.log(res); //处理成功的函数 相当于success
-
+						
 						}).catch(function(error) {
 							console.log(error) //错误处理 相当于error
 						});
-					}
+					}	
 					//判断是否正确
 					if (this.choices[i].right_answer == this.answer[0][i]) {
 						this.totalScore += this.choices[i].score;
@@ -345,11 +380,11 @@
 							your_answer: this.answer[1][i]
 						}).then(res => {
 							console.log(res); //处理成功的函数 相当于success
-
+						
 						}).catch(function(error) {
 							console.log(error) //错误处理 相当于error
 						});
-					}
+					}	
 					//判断是否正确
 					if (this.fills[i].right_answer == this.answer[1][i]) {
 						this.totalScore += this.fills[i].score;
@@ -368,42 +403,39 @@
 							your_answer: this.answer[2][i]
 						}).then(res => {
 							console.log(res); //处理成功的函数 相当于success
-
+						
 						}).catch(function(error) {
 							console.log(error) //错误处理 相当于error
 						});
-					}
+					}	
 					//判断是否正确
 					if (this.judges[i].right_answer == this.answer[2][i]) {
 						this.totalScore += this.judges[i].score;
 					}
 				}
 			},
-			//主观题阅卷
+			//编程题阅卷
 			goOverProgram: async function() {
-				for (let i = 0; i < this.subjective.length; i++) {
+				for (let i = 0; i < this.programs.length; i++) {
 					//判断是否正确
-					await axios.post(`api/upload-subjective/`, {
+					await axios.post(`api/check-program/`, {
 						'answer': this.answer[3][i] == undefined ? '' : this.answer[3][i],
-            "exam_id": this.getExam.id,
-						"student_id": this.getStudent.id,
-            "question_id":this.subjective[i].id,
-            "identifier": identifier,
+						'program': this.programs[i]
 					}).then(res => { //处理成功的函数 相当于success
-						if (res && res.data.message == "success") {
-							console.log("上传成功！")
+						if (res && res.data.message == "pass") {
+							this.totalScore += this.programs[i].score;
 						}
 						//如果是模拟练习，保存答题记录
 						if (this.isPractice == true) {
 							axios.post(`api/records/programs/`, {
 								practice_id: this.getPractice.id,
 								student_id: this.getStudent.id,
-								subjective_id: this.subjective[i].id,
+								program_id: this.programs[i].id,
 								your_answer: this.answer[3][i],
 								cmd_msg: res.data.message
 							}).then(res => {
 								console.log(res); //处理成功的函数 相当于success
-
+							
 							}).catch(function(error) {
 								console.log(error) //错误处理 相当于error
 							});
@@ -417,33 +449,32 @@
 			handIn() {
 				this.goOverPaper();
 				const temp = this
-				clearTimeout(this.timer); //清除延迟执行
+				clearTimeout(this.timer); //清除延迟执行 
 				this.timer = setTimeout(() => { //设置延迟执行
 					if (this.isPractice == true) {
 						this.$message({
-							message: '你本次的测试客观题成绩为：' + this.totalScore + '分',
+							message: '你本次的测试成绩为：' + this.totalScore + '分',
 							type: 'success'
 						});
 						//跳转到模拟练习
 						this.$router.push('/practice')
 					} else {
 						this.$message({
-							message: '你本次的考试客观题成绩为：' + this.totalScore + '分',
+							message: '你本次的考试成绩为：' + this.totalScore + '分',
 							type: 'success'
 						});
 						// 考试成绩存库
 						axios.post(`api/grades/`, {
 							"exam_id": this.getExam.id,
 							"student_id": temp.getStudent.id,
-							"score": this.totalScore,
-              "identifier": identifier,
+							"score": this.totalScore
 						}).then(res => { //处理成功的函数 相当于success
 							//跳转到我的成绩
 							this.$router.push('/grade')
 						}).catch(function(error) {
 							//错误处理 相当于error
 						})
-
+			
 					}
 				}, 1000);
 			}
@@ -538,7 +569,7 @@
 		margin-top: 40px;
 	}
 
-	#subjective {
+	#program {
 		float: left;
 		width: 1000px;
 	}

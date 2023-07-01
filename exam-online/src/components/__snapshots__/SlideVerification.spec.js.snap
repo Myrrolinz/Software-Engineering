@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SlideVerification/> snapshot测试 1`] = `
+"<div class=\\"drag\\">
+  <div class=\\"drag_bg\\"></div>
+  <div class=\\"drag_text\\">拖动滑块验证</div>
+  <div class=\\"handler handler_bg\\" style=\\"position: absolute; top: 0px; left: 0px;\\"></div>
+</div>"
+`;

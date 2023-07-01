@@ -48,6 +48,17 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import Element from 'element-ui'
+
+	Vue.use(Element)
+	Vue.component('el-form-item', Element)
+	
+	import store from '@/store'
+
+	import axios from 'axios'
+	Vue.prototype.$axios = axios
+
 	import Pagination from '@/components/Pagination.vue'
 	export default {
 		data() {
@@ -77,7 +88,7 @@
 					params: {
 						page: this.page,
 						page_size: this.page_size,
-						student_id: this.$store.state.student.id,
+						student_id: store.state.student.id,//this.$store.state.student.id,
 					}
 				}).then(res => {
 					this.pagination = res.data

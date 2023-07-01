@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Practice/> snapshot测试 1`] = `
+"<div id=\\"practice\\">
+  <el-card-stub class=\\"box-card\\">
+    <div class=\\"clearfix\\"><span>组卷模块</span></div>
+    <el-form-stub model=\\"[object Object]\\" labelwidth=\\"80px\\" labelsuffix=\\"\\" showmessage=\\"true\\" validateonrulechange=\\"true\\">
+      <el-form-item-stub label=\\"单选题:\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+        <el-slider-stub min=\\"0\\" max=\\"10\\" step=\\"1\\" value=\\"1\\" showinputcontrols=\\"true\\" inputsize=\\"small\\" showstops=\\"true\\" showtooltip=\\"true\\" debounce=\\"300\\"></el-slider-stub>
+      </el-form-item-stub>
+      <el-form-item-stub label=\\"填空题:\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+        <el-slider-stub min=\\"0\\" max=\\"10\\" step=\\"1\\" value=\\"1\\" showinputcontrols=\\"true\\" inputsize=\\"small\\" showstops=\\"true\\" showtooltip=\\"true\\" debounce=\\"300\\"></el-slider-stub>
+      </el-form-item-stub>
+      <el-form-item-stub label=\\"判断题:\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+        <el-slider-stub min=\\"0\\" max=\\"10\\" step=\\"1\\" value=\\"1\\" showinputcontrols=\\"true\\" inputsize=\\"small\\" showstops=\\"true\\" showtooltip=\\"true\\" debounce=\\"300\\"></el-slider-stub>
+      </el-form-item-stub>
+      <el-form-item-stub label=\\"编程题:\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+        <el-slider-stub min=\\"0\\" max=\\"10\\" step=\\"1\\" value=\\"1\\" showinputcontrols=\\"true\\" inputsize=\\"small\\" showstops=\\"true\\" showtooltip=\\"true\\" debounce=\\"300\\"></el-slider-stub>
+      </el-form-item-stub>
+      <el-form-item-stub label=\\"难易度:\\" inlinemessage=\\"\\" showmessage=\\"true\\">
+        <el-rate-stub value=\\"1\\" lowthreshold=\\"2\\" highthreshold=\\"4\\" max=\\"5\\" colors=\\"#F7BA2A,#F7BA2A,#F7BA2A\\" voidcolor=\\"#C6D1DE\\" disabledvoidcolor=\\"#EFF2F7\\" iconclasses=\\"el-icon-star-on,el-icon-star-on,el-icon-star-on\\" voidiconclass=\\"el-icon-star-off\\" disabledvoidiconclass=\\"el-icon-star-on\\" showtext=\\"true\\" textcolor=\\"#1f2d3d\\" texts=\\"入门,简单,普通,较难,困难\\" scoretemplate=\\"{value}\\"></el-rate-stub>
+      </el-form-item-stub>
+    </el-form-stub>
+    <el-button-stub type=\\"primary\\">生成试卷并开始答题</el-button-stub>
+  </el-card-stub>
+  <el-table-stub data=\\"\\" fit=\\"true\\" border=\\"true\\" showheader=\\"true\\" selectonindeterminate=\\"true\\" indent=\\"16\\" treeprops=\\"[object Object]\\" style=\\"width: 61%;\\">
+    <el-table-column-stub type=\\"index\\" width=\\"50\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" label=\\"练习时间\\" prop=\\"creat_time\\" width=\\"250px\\" sortable=\\"true\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" label=\\"练习名称\\" prop=\\"name\\" width=\\"250px\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+    <el-table-column-stub type=\\"default\\" resizable=\\"true\\" filtermultiple=\\"true\\" sortorders=\\"ascending,descending,\\"></el-table-column-stub>
+  </el-table-stub>
+  <pagination-stub></pagination-stub>
+</div>"
+`;

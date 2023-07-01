@@ -3,6 +3,11 @@
 import Vue from 'vue';
 import axios from "axios";
 
+// Full config:  https://github.com/axios/axios#request-config
+// axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 let config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
@@ -11,32 +16,13 @@ let config = {
 
 const _axios = axios.create(config);
 
-// Function to get CSRF token from cookies
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
 _axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
-    // Add token to headers
-    if (localStorage.getItem('Authorization')) {
-      config.headers.Authorization = localStorage.getItem('Authorization');
-    }
-    // Add CSRF token to headers
-    config.headers['X-CSRFToken'] = getCookie('csrftoken');
+	// 添加请求拦截器，在请求头中加token
+	if (localStorage.getItem('Authorization')) {
+	      config.headers.Authorization = localStorage.getItem('Authorization');
+	    }
     return config;
   },
   function(error) {
