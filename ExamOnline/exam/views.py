@@ -76,7 +76,6 @@ class GradeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.
                 for subjective in subjective_list:
                     score += subjective.score if subjective.score else 0
                 grade.score = score
-                # grade.save()
 
         return self.queryset
 
