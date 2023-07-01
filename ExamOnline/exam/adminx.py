@@ -10,8 +10,8 @@ from xadmin.views import CommAdminView, BaseAdminView
 
 class GlobalSetting(object):
     # 全局设置
-    site_title = 'Python在线考试后台管理系统'
-    site_footer = 'Design by Pengshengfu'
+    site_title = '四六级在线考试后台管理系统'
+    site_footer = 'Design by YunmeiGuan'
     # 菜单默认收缩
     # menu_style = 'accordion'
 
@@ -48,7 +48,7 @@ class PaperAdmin(object):
     model_icon = 'fa fa-file-text'
 
 
-class GradeAdmin(object):# 成绩管理
+class GradeAdmin(object):
     list_display = ['id', 'exam', 'student', 'score', 'create_time', 'update_time']
     list_filter = ['exam', 'student', 'create_time', 'update_time']
     search_fields = ['exam', 'student']
@@ -57,7 +57,7 @@ class GradeAdmin(object):# 成绩管理
     # list_editable = ['id', 'score']
     model_icon = 'fa fa-bar-chart'
 
-    data_charts = {# 图表
+    data_charts = {
         'grade_charts1': {
             'title': '考试成绩曲线图',
             'x-field': 'create_time',

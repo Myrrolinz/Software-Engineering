@@ -5,7 +5,7 @@ from user.models import Student
 from user.serializers import StudentSerializer
 
 
-class PaperSerializer(serializers.ModelSerializer):  
+class PaperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paper
         fields = '__all__'
@@ -26,8 +26,8 @@ class GradeSerializer(serializers.ModelSerializer):
     student = StudentSerializer(read_only=True)
 
     # 用于创建的只写字段
-    exam_id = serializers.PrimaryKeyRelatedField(queryset=Exam.objects.all(), source='exam', write_only=True) # source 指定外键字段
-    student_id = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all(), source='student', write_only=True) # source 指定外键字段
+    exam_id = serializers.PrimaryKeyRelatedField(queryset=Exam.objects.all(), source='exam', write_only=True)
+    student_id = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all(), source='student', write_only=True)
 
     class Meta:
         model = Grade

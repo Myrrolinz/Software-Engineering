@@ -27,7 +27,7 @@ from user.views import RegisterViewSet, StudentViewSet, UpdatePwdApi, ClazzListV
 
 router = DefaultRouter()
 
-# 配置exams的url 
+# 配置exams的url
 router.register(r'exams', ExamListViewSet)
 router.register(r'grades', GradeListViewSet)
 router.register(r'choices', ChoiceListViewSet)
