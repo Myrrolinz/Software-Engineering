@@ -63,14 +63,6 @@ const routes = [{
 				meta: {
 					title: '考试得分'
 				}
-			},
-			{
-				path: 'mistake',
-				name: 'Mistakes',
-				component: () => import('../views/Mistakes.vue'),
-				meta: {
-					title: '错题本'
-				}
 			}
 		]
 	},
@@ -104,14 +96,6 @@ const routes = [{
 		component: () => import('../views/Register.vue'),
 		meta: {
 			title: '注册界面'
-		}
-	},
-	{
-		path: '/payment',
-		name: 'Payment',
-		component: () => import('../views/Payment.vue'),
-		meta: {
-			title: '报名缴费'
 		}
 	},
 	{

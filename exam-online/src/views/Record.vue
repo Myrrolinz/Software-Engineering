@@ -60,12 +60,12 @@
 			</div>
 		</div>
 		<div id="program-record" class="type">
-			<h2>编程题</h2>
+			<h2>作文题</h2>
 			<div class="question" v-for="(item,index) in programRecord">
 				<h4>{{index + 1}}. {{item.program.question}}</h4>
 				<el-row type="flex" justify="space-around">
 					<el-col :span="10">
-						编程区
+						作答区
 						<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 18}" v-model="item.your_answer" disabled>
 						</el-input>
 					</el-col>

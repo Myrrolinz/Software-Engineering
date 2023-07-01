@@ -32,7 +32,7 @@
 						</el-col>
 
 					</el-row>
-					<el-divider content-position="center">编程题</el-divider>
+					<el-divider content-position="center">作文题</el-divider>
 					<el-row class="question-tag">
 						<el-col :span="24">
 							<el-tag v-for="(item, index) in subjective" :key="item.id" :type="index + subjectivePos == current ? 'success' : ''"
