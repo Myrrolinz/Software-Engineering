@@ -26,7 +26,7 @@
 								<!-- <router-link target="_blank" :to="{path:'/answer',query:{exam: pagination.results[index],paper:item.paper}}">
 									<el-button type="text" class="button">开始做题</el-button>
 								</router-link> -->
-								<el-button type="text" class="button" @click="toAnswer(index)">报名</el-button>
+								<el-button type="text" class="button" @click="toAnswer(index)">开始做题</el-button>
 							</div>
 						</div>
 					</el-card>
@@ -114,12 +114,8 @@
 				localStorage.setItem("exam", JSON.stringify(this.pagination.results[index]));
 				localStorage.setItem("paper", JSON.stringify(this.pagination.results[index].paper));
 				this.$store.commit("setIsPractice", false)
-				// this.$router.push({
-				// 	path: '/answer',
-				// 	query: {}
-				// })
 				this.$router.push({
-					path: '/Pay',
+					path: '/answer',
 					query: {}
 				})
 			}
@@ -130,31 +126,3 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
-	.bottom {
-		margin-top: 13px;
-		line-height: 12px;
-	}
-
-	.button {
-		padding: 0;
-		// float: right;
-	}
-
-	.image {
-		width: 50%;
-		height: 80%;
-		display: block;
-		margin: 20px auto 10px auto;
-	}
-
-	.clearfix:before,
-	.clearfix:after {
-		display: table;
-		content: "";
-	}
-
-	.clearfix:after {
-		clear: both
-	}
-</style>
