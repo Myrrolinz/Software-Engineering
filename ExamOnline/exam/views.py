@@ -48,8 +48,7 @@ class ExamListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         if student:
             self.queryset = Exam.objects.filter(clazzs__student=student)
         return self.queryset
-
-
+        
 class GradeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """成绩列表"""
     # 这里必须要定义一个默认的排序,否则会报错
@@ -59,25 +58,7 @@ class GradeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.
     # 分页
     pagination_class = CommonPagination
 
-    # 重写queryset
-    def get_queryset(self):
-        # 学生ID
-        student_id = self.request.query_params.get("student_id")
 
-        if student_id:
-            self.queryset = Grade.objects.filter(student_id=student_id)
-        # 修改分数的数值
-        for grade in self.queryset:
-            # 查找所有Subjective表中，student_id=student_id,exam_id = grade.exam_id的数据
-            subjective_list: list = SubjectiveAnswer.objects.filter(student_id=student_id, exam_id=grade.exam_id, identifier=grade.identifier)
-            # 如果有数据，就把分数相加 
-            if subjective_list:
-                score = grade.score
-                for subjective in subjective_list:
-                    score += subjective.score if subjective.score else 0
-                grade.score = score
-
-        return self.queryset
 
 
 class PracticeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
