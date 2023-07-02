@@ -48,33 +48,6 @@ class PaperAdmin(object):
     model_icon = 'fa fa-file-text'
 
 
-class GradeAdmin(object):# 成绩管理
-    list_display = ['id', 'exam', 'student', 'score', 'create_time', 'update_time']
-    list_filter = ['exam', 'student', 'create_time', 'update_time']
-    search_fields = ['exam', 'student']
-    list_display_links = ['score']
-    list_per_page = 10
-    # list_editable = ['id', 'score']
-    model_icon = 'fa fa-bar-chart'
-
-    data_charts = {# 图表
-        'grade_charts1': {
-            'title': '考试成绩曲线图',
-            'x-field': 'create_time',
-            'y-field': ('score',),
-            'order': ('id',)
-        },
-        'grade_charts2': {
-            'title': '考试成绩柱状图',
-            'x-field': 'score',
-            'y-field': ('score',),
-            'order': ('id',),
-            'option': {
-                "series": {"bars": {"align": "center", "barWidth": 0.5, "show": True}},
-                "xaxis": {"aggregate": "count", "mode": "score"}
-            }
-        }
-    }
 
 
 # 批改主观题
@@ -90,6 +63,15 @@ class SubjectiveAnswerAdmin(object):
 
     def has_add_permission(self):
         return False
+
+class GradeAdmin(object):# 成绩管理
+    list_display = ['id', 'exam', 'student', 'score', 'create_time', 'update_time']
+    list_filter = ['exam', 'student', 'create_time', 'update_time']
+    search_fields = ['exam', 'student']
+    list_display_links = ['score']
+    list_per_page = 10
+    # list_editable = ['id', 'score']
+    model_icon = 'fa fa-bar-chart'
 
 xadmin.site.register(CommAdminView, GlobalSetting)
 xadmin.site.register(BaseAdminView, BaseSetting)
