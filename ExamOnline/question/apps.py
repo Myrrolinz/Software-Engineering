@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class QuestionConfig(AppConfig):
-    name = 'question'
-    verbose_name = '题库管理'
+class ExamConfig(AppConfig):
+    name = 'exam'
+    verbose_name = '考试管理'

@@ -1,1 +1,1 @@
-default_app_config = 'question.apps.QuestionConfig'
+default_app_config =  'exam.apps.ExamConfig'
