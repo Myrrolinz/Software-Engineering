@@ -1,101 +1,85 @@
-import subprocess
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import mixins, viewsets, filters
+from rest_framework.pagination import PageNumberPagination
 
-from rest_framework import mixins, viewsets
-from rest_framework.response import Response
-from rest_framework.views import APIView
-
-from exam.models import SubjectiveAnswer
-from question.models import Choice, Fill, Judge, Subjective
-from question.serializers import ChoiceSerializer, FillSerializer, JudgeSerializer, SubjectiveSerializer
-
-
+from exam.filter import ExamFilter
+from exam.models import Exam, Grade, Practice
+from exam.serializers import ExamSerializer, GradeSerializer, PracticeSerializer
 # Create your views here.
+from user.models import Student
 
 
-class ChoiceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """选择题列表页"""
-    # 这里要定义一个默认的排序，否则会报错
-    queryset = Choice.objects.all().order_by('id')[:0]
+class CommonPagination(PageNumberPagination):
+    """考试列表自定义分页"""
+    # 默认每页显示的个数
+    page_size = 10
+    # 可以动态改变每页显示的个数
+    page_size_query_param = 'page_size'
+    # 页码参数
+    page_query_param = 'page'
+    # 最多能显示多少页
+    max_page_size = 10
+
+
+class ExamListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """考试列表页"""
+    # 这里必须要定义一个默认的排序,否则会报错
+    queryset = Exam.objects.all().order_by('id')
     # 序列化
-    serializer_class = ChoiceSerializer
+    serializer_class = ExamSerializer
+    # 分页
+    pagination_class = CommonPagination
+    # 开启过滤
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    # 设置filter的类为我们自定义的类
+    filter_class = ExamFilter
+    # 搜索,=name表示精确搜索，也可以使用各种正则表达式
+    search_fields = ('name', 'major')
+    # 排序
+    ordering_fields = ('id', 'exam_date')
 
     # 重写queryset
     def get_queryset(self):
-        # 题目数量
-        choice_number = int(self.request.query_params.get("choice_number"))
-        level = int(self.request.query_params.get("level", 1))
+        # 学生ID
+        student_id = self.request.query_params.get("student_id")
+        student = Student.objects.get(id=student_id)
 
-        if choice_number:
-            self.queryset = Choice.objects.all().filter(level=level).order_by('?')[:choice_number]
+        if student:
+            self.queryset = Exam.objects.filter(clazzs__student=student)
         return self.queryset
 
 
-class FillListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """填空题列表页"""
-    # 这里要定义一个默认的排序，否则会报错
-    queryset = Fill.objects.all().order_by('id')[:0]
+class GradeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """成绩列表"""
+    # 这里必须要定义一个默认的排序,否则会报错
+    queryset = Grade.objects.all().order_by('-create_time')
     # 序列化
-    serializer_class = FillSerializer
+    serializer_class = GradeSerializer
+    # 分页
+    pagination_class = CommonPagination
 
     # 重写queryset
     def get_queryset(self):
-        # 题目数量
-        fill_number = int(self.request.query_params.get("fill_number"))
-        level = int(self.request.query_params.get("level", 1))
+        # 学生ID
+        student_id = self.request.query_params.get("student_id")
 
-        if fill_number:
-            self.queryset = Fill.objects.all().filter(level=level).order_by('?')[:fill_number]
+        if student_id:
+            self.queryset = Grade.objects.filter(student_id=student_id)
         return self.queryset
 
 
-class JudgeListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """判断题列表页"""
-    # 这里要定义一个默认的排序，否则会报错
-    queryset = Judge.objects.all().order_by('?')[:0]
+class PracticeListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """练习列表"""
+    # 数据集
+    queryset = Practice.objects.all()
     # 序列化
-    serializer_class = JudgeSerializer
+    serializer_class = PracticeSerializer
+    # 分页
+    pagination_class = CommonPagination
 
-    # 重写queryset
     def get_queryset(self):
-        # 题目数量
-        judge_number = int(self.request.query_params.get("judge_number"))
-        level = int(self.request.query_params.get("level", 1))
-
-        if judge_number:
-            self.queryset = Judge.objects.all().filter(level=level).order_by('?')[:judge_number]
+        # 学生ID
+        student_id = self.request.query_params.get('student_id')
+        if student_id:
+            self.queryset = Practice.objects.filter(student_id=student_id)
         return self.queryset
-
-
-class SubjectiveListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """主观题列表页"""
-    # 这里定义一个默认的排序，否则会报错
-    queryset = Subjective.objects.all().order_by('?')[:0]
-    # 序列化
-    serializer_class = SubjectiveSerializer
-
-    # 重写queryset
-    def get_queryset(self):
-        # 题目数量
-        subjective_number = int(self.request.query_params.get("subjective_number"))
-        level = int(self.request.query_params.get("level", 1))
-
-        if subjective_number:
-            self.queryset = Subjective.objects.all().filter(level=level).order_by('?')[:subjective_number]
-        return self.queryset
-
-
-class UploadSubjective(APIView):
-    """上传主观题答案"""
-
-    def post(self, request):
-        # 获取post提交的字典数据
-        json_body = request.data
-        # 获取题目信息
-        exam_id = json_body.get("exam_id")
-        student_id = json_body.get("student_id")
-        question_id = json_body.get("question_id")
-        answer = json_body.get("answer")
-        identifier = json_body.get("identifier")
-        # 把id和answer存入数据库Subjective
-        SubjectiveAnswer.objects.create(student_id=student_id, question_id=question_id, answer=answer, exam_id=exam_id,identifier=identifier)
-        return Response({"message": "success"})
