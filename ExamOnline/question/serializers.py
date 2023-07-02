@@ -1,46 +1,27 @@
 from rest_framework import serializers
 
-from exam.models import Exam, Paper, Grade, Practice
-from user.models import Student
-from user.serializers import StudentSerializer
+from question.models import Choice, Fill, Judge, Program
 
 
-class PaperSerializer(serializers.ModelSerializer):
+class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Paper
+        model = Choice
         fields = '__all__'
 
 
-class ExamSerializer(serializers.ModelSerializer):
-    # 覆盖外键字段
-    paper = PaperSerializer()
-
+class FillSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Exam
+        model = Fill
         fields = '__all__'
 
 
-class GradeSerializer(serializers.ModelSerializer):
-    # 覆盖外键字段 只读
-    exam = ExamSerializer(read_only=True)
-    student = StudentSerializer(read_only=True)
-
-    # 用于创建的只写字段
-    exam_id = serializers.PrimaryKeyRelatedField(queryset=Exam.objects.all(), source='exam', write_only=True)
-    student_id = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all(), source='student', write_only=True)
-
+class JudgeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Grade
+        model = Judge
         fields = '__all__'
 
 
-class PracticeSerializer(serializers.ModelSerializer):
-    # 覆盖外键字段 只读
-    student = StudentSerializer(read_only=True)
-
-    # 用于创建的只写字段
-    student_id = serializers.PrimaryKeyRelatedField(queryset=Student.objects.all(), source='student', write_only=True)
-
+class ProgramSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Practice
+        model = Program
         fields = '__all__'
