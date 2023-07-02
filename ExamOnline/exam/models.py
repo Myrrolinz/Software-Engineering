@@ -56,22 +56,7 @@ class Exam(models.Model):
         return self.name
 
 
-class Grade(models.Model):
-    """成绩模型类"""
-    exam = models.ForeignKey(Exam, verbose_name="考试", on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE)
-    score = models.PositiveSmallIntegerField("分数", default="")
-    create_time = models.DateTimeField("创建日期", auto_now_add=True)
-    update_time = models.DateTimeField("修改日期", auto_now=True)
-    identifier = models.CharField("标识符", max_length=8, default="")  # 8位随机字符串用于标示特定的考试
 
-    class Meta:
-        ordering = ['id']
-        verbose_name = '成绩'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return f'{self.id}的{self.student}为{self.score}分'
 
 
 class Practice(models.Model):
