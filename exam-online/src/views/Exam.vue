@@ -126,3 +126,31 @@
 		}
 	}
 </script>
+<style lang="scss" scoped>
+	.bottom {
+		margin-top: 13px;
+		line-height: 12px;
+	}
+
+	.button {
+		padding: 0;
+		// float: right;
+	}
+
+	.image {
+		width: 50%;
+		height: 80%;
+		display: block;
+		margin: 20px auto 10px auto;
+	}
+
+	.clearfix:before,
+	.clearfix:after {
+		display: table;
+		content: "";
+	}
+
+	.clearfix:after {
+		clear: both
+	}
+</style>
