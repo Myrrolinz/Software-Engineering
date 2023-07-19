@@ -1,6 +1,6 @@
-# exam-online
+# 四六级报考系统-前端
 
-后端代码：https://github.com/520118202/ExamOnline
+此部分为前端代码，后端代码见Exam-Online文件夹
 
 ## Project setup
 ```
